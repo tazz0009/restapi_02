@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -54,6 +57,16 @@ public class TodoController {
 	@PatchMapping(value = "/clearCompleted")
 	public void clearCompleted() {
 		todoRep.clearCompleted();
+	}
+	
+	@PostMapping(value = "/multi")
+	public void multi(@RequestParam("files") List<MultipartFile> files) {
+		for (MultipartFile multipartFile : files) {
+			System.out.println("multipartFile getName: " + multipartFile.getName());
+			System.out.println("multipartFile getSize: " + multipartFile.getSize());
+			System.out.println("multipartFile getOriginalFilename: " + multipartFile.getOriginalFilename());
+			
+		}
 	}
 
 }
